@@ -1,8 +1,8 @@
-import axios from "axios"
+const axios = require("axios")
 /* request pre-processing */
 
 // BACK-END URL
-axios.defaults.baseURL = "http://192.168.60.194:3333"
+axios.defaults.baseURL = "http://192.168.169.34:8000"
 axios.interceptors.request.use(
     (config) => {
         // add header token
@@ -29,4 +29,6 @@ axios.interceptors.response.use(
     }
 )
 
-export const AxiosBackend = axios.create()
+const AxiosBackend = axios.create()
+
+module.exports = { AxiosBackend }

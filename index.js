@@ -1,6 +1,7 @@
 require("dotenv").config()
 const express = require("express")
 const path = require("path")
+const userRouter = require("./routes/user.route")
 
 const app = express()
 const PORT = process.env.PORT || 5000
@@ -23,7 +24,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use("/user", userRouter)
 // From 2nd para is a list of function that will be called
 // when get into this endpoint
-app.use("/download", downloadRouter)
+// app.use("/download", downloadRouter)
 
 // TODO production serve client
 if (process.env.NODE_ENV === "production") {
@@ -35,6 +36,10 @@ if (process.env.NODE_ENV === "production") {
         res.sendFile(path.join(__dirname, "client/dist", "index.html"))
     })
 }
+
+app.use("/", (req, res) => {
+    res.json("This is root page")
+})
 
 //TODO run server
 let server = app.listen(PORT, () => {
