@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }))
 
 // Axios flow: from here --> routes --> controllers (take
 //             axios config from utils to call api from be server)
-app.use("/user", userRouter)
+app.use("/api/user", userRouter)
 // From 2nd para is a list of function that will be called
 // when get into this endpoint
 // app.use("/download", downloadRouter)

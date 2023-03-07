@@ -21,6 +21,30 @@ const signUpController = (req, res) => {
         })
 }
 
+const verificationController = (req, res) => {
+    let { token } = req.body
+    AxiosBackend.post(`/authentication/signup-verify?token=${token}`, {})
+        .then((result) => {
+            res.json(result.data)
+        })
+        .catch((err) => {
+            res.json(err)
+            console.log("err", err)
+        })
+}
+
+const resendVerificationController = (req, res) => {
+    let { email } = req.body
+    AxiosBackend.post(`/authentication/resend-verify?email=${email}`, {})
+        .then((result) => {
+            res.json(result.data)
+        })
+        .catch((err) => {
+            res.json(err)
+            console.log("err", err)
+        })
+}
+
 // const loginController = (req, res) => {
 //     let user_ip = req.headers['x-forwarded-for'] ||
 //         req.connection.remoteAddress ||
@@ -81,5 +105,7 @@ const signUpController = (req, res) => {
 // }
 
 module.exports = {
-    signUpController
+    signUpController,
+    verificationController,
+    resendVerificationController
 }
