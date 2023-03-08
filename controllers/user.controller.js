@@ -34,8 +34,25 @@ const verificationController = (req, res) => {
 }
 
 const resendVerificationController = (req, res) => {
-    let { email } = req.body
-    AxiosBackend.post(`/authentication/resend-verify?email=${email}`, {})
+    let { user } = req.body
+    AxiosBackend.post(`/authentication/resend-verify?user=${user}`, {})
+        .then((result) => {
+            res.json(result.data)
+        })
+        .catch((err) => {
+            res.json(err)
+            console.log("err", err)
+        })
+}
+
+const loginController = (req, res) => {
+    let { userName, password, isRemember } = req.body
+    console.log(req.body)
+    AxiosBackend.post(`/authentication/login`, {
+        user: userName,
+        password: password,
+        remember_me: isRemember
+    })
         .then((result) => {
             res.json(result.data)
         })
@@ -107,5 +124,6 @@ const resendVerificationController = (req, res) => {
 module.exports = {
     signUpController,
     verificationController,
-    resendVerificationController
+    resendVerificationController,
+    loginController
 }

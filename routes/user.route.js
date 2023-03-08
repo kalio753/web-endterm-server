@@ -2,10 +2,12 @@ const userRouter = require("express").Router()
 const {
     signUpController,
     resendVerificationController,
-    verificationController
+    verificationController,
+    loginController
 } = require("../controllers/user.controller")
 
 userRouter.post("/signup", signUpController)
+userRouter.post("/login", loginController)
 userRouter.post("/verification", verificationController)
 userRouter.post("/resend-verification", resendVerificationController)
 // userRouter.post('/check-login',checkLoginController)
