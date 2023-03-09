@@ -8,7 +8,7 @@ axios.interceptors.request.use(
         // add header token
 
         // config.headers["Authorization"] = `Bearer ${localStorage.getItem(
-        //     "access_token"
+        //     "token"
         // )}`
 
         return config

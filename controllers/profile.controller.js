@@ -40,7 +40,30 @@ const getProfileByIdController = (req, res) => {
     }
 }
 
+const updateProfileController = (req, res) => {
+    const { token, id, body } = req.body
+    console.log("body", body, id)
+    try {
+        AxiosBackend.request({
+            headers: { Authorization: `Bearer ${token}` },
+            url: `/user/update-profile/${id}`,
+            method: "patch",
+            data: body
+        })
+            .then((result) => {
+                res.json(result.data)
+            })
+            .catch((err) => {
+                res.json(err)
+                console.log("err", err)
+            })
+    } catch (e) {
+        return res.json({ success: false, message: e.message })
+    }
+}
+
 module.exports = {
     getMyProfileController,
-    getProfileByIdController
+    getProfileByIdController,
+    updateProfileController
 }

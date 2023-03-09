@@ -16,5 +16,9 @@
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
         "nodemon": "^2.0.21"
+    },
+    "dependencies": {
+        "dayjs": "^1.11.7",
+        "multer": "^1.4.5-lts.1"
     }
 }
