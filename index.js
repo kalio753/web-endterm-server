@@ -114,9 +114,9 @@ app.post("/upload", (req, res) => {
     })
 })
 
-// app.use("/", (req, res) => {
-//     res.json("This is root page")
-// })
+app.use("/test", (req, res) => {
+    res.json("This is root page")
+})
 
 //TODO run server
 let server = app.listen(PORT, () => {
