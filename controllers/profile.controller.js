@@ -6,7 +6,7 @@ const getMyProfileController = (req, res) => {
         AxiosBackend.request({
             headers: { Authorization: `Bearer ${token}` },
             url: "/user/profile/me",
-            method: "get"
+            method: "get",
         })
             .then((result) => {
                 res.json(result.data)
@@ -26,7 +26,7 @@ const getProfileByIdController = (req, res) => {
         AxiosBackend.request({
             headers: { Authorization: `Bearer ${token}` },
             url: `/user/profile/${id}`,
-            method: "get"
+            method: "get",
         })
             .then((result) => {
                 res.json(result.data)
@@ -48,7 +48,49 @@ const updateProfileController = (req, res) => {
             headers: { Authorization: `Bearer ${token}` },
             url: `/user/update-profile/${id}`,
             method: "patch",
-            data: body
+            data: body,
+        })
+            .then((result) => {
+                res.json(result.data)
+            })
+            .catch((err) => {
+                res.json(err)
+                console.log("err", err)
+            })
+    } catch (e) {
+        return res.json({ success: false, message: e.message })
+    }
+}
+
+const updateCoverController = (req, res) => {
+    const { token, id, body } = req.body
+    try {
+        AxiosBackend.request({
+            headers: { Authorization: `Bearer ${token}` },
+            url: `/user/update-avatar2nd/${id}`,
+            method: "post",
+            data: body,
+        })
+            .then((result) => {
+                res.json(result.data)
+            })
+            .catch((err) => {
+                res.json(err)
+                console.log("err", err)
+            })
+    } catch (e) {
+        return res.json({ success: false, message: e.message })
+    }
+}
+
+const updateAvtController = (req, res) => {
+    const { token, id, body } = req.body
+    try {
+        AxiosBackend.request({
+            headers: { Authorization: `Bearer ${token}` },
+            url: `/user/update-avatar/${id}`,
+            method: "post",
+            data: body,
         })
             .then((result) => {
                 res.json(result.data)
@@ -65,5 +107,7 @@ const updateProfileController = (req, res) => {
 module.exports = {
     getMyProfileController,
     getProfileByIdController,
-    updateProfileController
+    updateProfileController,
+    updateCoverController,
+    updateAvtController,
 }

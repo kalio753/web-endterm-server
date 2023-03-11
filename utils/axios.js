@@ -2,7 +2,8 @@ const axios = require("axios")
 /* request pre-processing */
 
 // BACK-END URL
-axios.defaults.baseURL = "http://192.168.169.34:8000"
+// axios.defaults.baseURL = "http://192.168.169.34:8000"
+axios.defaults.baseURL = "http://thesocialhub.whatever/"
 axios.interceptors.request.use(
     (config) => {
         // add header token

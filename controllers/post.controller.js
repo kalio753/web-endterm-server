@@ -6,7 +6,7 @@ const getAllPostsController = (req, res) => {
         AxiosBackend.request({
             headers: { Authorization: `Bearer ${token}` },
             url: "/post",
-            method: "get"
+            method: "get",
         })
             .then((result) => {
                 res.json(result.data)
@@ -27,7 +27,7 @@ const uploadPostsController = (req, res) => {
             headers: { Authorization: `Bearer ${token}` },
             url: "/post",
             method: "post",
-            data: body
+            data: body,
         })
             .then((result) => {
                 res.json(result.data)
@@ -41,4 +41,49 @@ const uploadPostsController = (req, res) => {
     }
 }
 
-module.exports = { getAllPostsController, uploadPostsController }
+const getPostByIdController = (req, res) => {
+    const { token, id } = req.body
+    try {
+        AxiosBackend.request({
+            headers: { Authorization: `Bearer ${token}` },
+            url: `/user/posts/${id}`,
+            method: "get",
+        })
+            .then((result) => {
+                res.json(result.data)
+            })
+            .catch((err) => {
+                res.json(err)
+                console.log("err", err)
+            })
+    } catch (e) {
+        return res.json({ success: false, message: e.message })
+    }
+}
+
+const deletePostController = (req, res) => {
+    const { token, id } = req.body
+    try {
+        AxiosBackend.request({
+            headers: { Authorization: `Bearer ${token}` },
+            url: `/post/${id}`,
+            method: "delete",
+        })
+            .then((result) => {
+                res.json(result.data)
+            })
+            .catch((err) => {
+                res.json(err)
+                console.log("err", err)
+            })
+    } catch (e) {
+        return res.json({ success: false, message: e.message })
+    }
+}
+
+module.exports = {
+    getAllPostsController,
+    uploadPostsController,
+    getPostByIdController,
+    deletePostController,
+}

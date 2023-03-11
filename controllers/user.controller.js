@@ -9,7 +9,7 @@ const signUpController = (req, res) => {
         full_name: fullName,
         password: password,
         password_confirm: confirmPassword,
-        phone
+        phone,
     })
         .then((result) => {
             res.json(result.data)
@@ -51,7 +51,7 @@ const loginController = (req, res) => {
     AxiosBackend.post(`/authentication/login`, {
         user: userName,
         password: password,
-        remember_me: isRemember
+        remember_me: isRemember,
     })
         .then((result) => {
             res.json(result.data)
@@ -67,7 +67,26 @@ const suggestFriendController = (req, res) => {
     AxiosBackend.request({
         url: `/user/suggest-friends`,
         headers: { Authorization: `Bearer ${token}` },
-        method: "get"
+        method: "get",
+    })
+        .then((result) => {
+            res.json(result.data)
+        })
+        .catch((err) => {
+            res.json(err)
+            console.log("err", err)
+        })
+}
+
+const searchFriendController = (req, res) => {
+    let { token, kw } = req.query
+    console.log("_________")
+    console.log("alaba maradona", req)
+    console.log("_________")
+    AxiosBackend.request({
+        url: `/user/search?kw=${kw}`,
+        headers: { Authorization: `Bearer ${token}` },
+        method: "get",
     })
         .then((result) => {
             res.json(result.data)
@@ -83,5 +102,6 @@ module.exports = {
     verificationController,
     resendVerificationController,
     loginController,
-    suggestFriendController
+    suggestFriendController,
+    searchFriendController,
 }
