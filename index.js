@@ -13,6 +13,9 @@ const PORT = process.env.PORT || 5000
 app.use("/files", express.static("files"))
 app.use(express.static("files"))
 
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
 // TODO Enable CORS
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*")
@@ -23,8 +26,6 @@ app.use(function (req, res, next) {
     )
     next()
 })
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
 
 // Axios flow: from here --> routes --> controllers (take
 //             axios config from utils to call api from be server)
@@ -34,17 +35,6 @@ app.use("/api/post", postRouter)
 // From 2nd para is a list of function that will be called
 // when get into this endpoint
 // app.use("/download", downloadRouter)
-
-// TODO production serve client
-// if (process.env.NODE_ENV === "production") {
-// Serve any static files
-app.use(express.static(path.join(__dirname, "client/dist")))
-
-// Handle React routing, return all requests to React app
-app.get("*", function (req, res) {
-    res.sendFile(path.join(__dirname, "client/dist", "index.html"))
-})
-// }
 
 // TODO multer upload
 const storage = multer.diskStorage({
@@ -113,6 +103,17 @@ app.post("/upload", (req, res) => {
         }
     })
 })
+
+// TODO production serve client
+// if (process.env.NODE_ENV === "production") {
+// Serve any static files
+app.use(express.static(path.join(__dirname, "client/dist")))
+
+// Handle React routing, return all requests to React app
+app.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "client/dist", "index.html"))
+})
+// }
 
 app.use("/test", (req, res) => {
     res.json("This is root page")
