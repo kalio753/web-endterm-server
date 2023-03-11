@@ -36,15 +36,15 @@ app.use("/api/post", postRouter)
 // app.use("/download", downloadRouter)
 
 // TODO production serve client
-if (process.env.NODE_ENV === "production") {
-    // Serve any static files
-    app.use(express.static(path.join(__dirname, "client/dist")))
+// if (process.env.NODE_ENV === "production") {
+// Serve any static files
+app.use(express.static(path.join(__dirname, "client/dist")))
 
-    // Handle React routing, return all requests to React app
-    app.get("*", function (req, res) {
-        res.sendFile(path.join(__dirname, "client/dist", "index.html"))
-    })
-}
+// Handle React routing, return all requests to React app
+app.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "client/dist", "index.html"))
+})
+// }
 
 // TODO multer upload
 const storage = multer.diskStorage({
@@ -62,7 +62,7 @@ const storage = multer.diskStorage({
     filename: (req, file, cb) => {
         console.log(file)
         cb(null, Date.now() + "_" + file.originalname)
-    }
+    },
 })
 
 const maxFileSize = 10 * 1024 * 1024 // 10 MB
@@ -89,7 +89,7 @@ const upload = multer({
         }
         cb(null, true)
     },
-    limits: { fileSize: maxFileSize }
+    limits: { fileSize: maxFileSize },
 }).single("file")
 
 app.post("/upload", (req, res) => {
@@ -114,9 +114,9 @@ app.post("/upload", (req, res) => {
     })
 })
 
-app.use("/", (req, res) => {
-    res.json("This is root page")
-})
+// app.use("/", (req, res) => {
+//     res.json("This is root page")
+// })
 
 //TODO run server
 let server = app.listen(PORT, () => {
